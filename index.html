@@ -21,16 +21,53 @@
 
 <body>
     <div id="mapid"></div>
+    <style>
+    .icon{
+      border-radius: 50%;
+    }
+
+    .ovfiets {
+        background-color: rgba(254,199,15,0.8);
+        width: 20px;
+        height: 20px;
+    }
+
+    .flickbike {
+        background-color: rgba(244,51,0,0.8);
+        width: 10px;
+        height: 10px;
+    }
+
+    .cykl {
+        background-color: rgba(146,198,54,0.8);
+        width: 20px;
+        height: 20px;
+    }
+
+    .nu-connect {
+        background-color: rgba(8,168,169,0.8);
+        width: 20px;
+        height: 20px;
+    }
+
+    .nextbike {
+        background-color: rgba(1,72,153,0.8);
+        width: 20px;
+        height: 20px;
+    }
+
+    </style>
 
     <script>
-        var mymap = L.map('mapid', {
+        var map = L.map('mapid', {
         zoomDelta: 0.25,
         zoomSnap: 0
     }).setView([52.090031, 5.318403], 9);
         L.tileLayer('https://api.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic3ZlbjRhbGwiLCJhIjoiY2pndHI1Zjk5MTRleTJxczM1cXp0dDFmYyJ9.q2gfHAYo0g84ltS2pzWJ-Q', {
             attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
             maxZoom: 18
-        }).addTo(mymap);
+        }).addTo(map);
+
 
 
         function getCoverage() {
@@ -41,8 +78,80 @@
                 .then(function (json) {
                     plotCoverage(json);
                 });
+        }
+
+        function getBikes(bounds) {
+            let p1 = new URLSearchParams("");
+            p1.append("sw_lng", bounds._southWest.lng)
+            p1.append("sw_lat", bounds._southWest.lat)
+            p1.append("ne_lng", bounds._northEast.lng)
+            p1.append("ne_lat", bounds._northEast.lat)
+             fetch('https://openbike.nl/api/cycles?' + p1.toString())
+                .then(function (response) {
+                    return response.json();
+                }).then(function(json) {
+                    plotBikes(json);
+                });
+        }
+
+        var markers = {};
+
+        icons = {};
+        urls = {};
+
+        icons["ovfiets"] = L.divIcon({
+            iconSize: [20, 20],
+            shadowSize: [0, 0],
+            className: 'icon ovfiets' 
+        });
+        urls["ovfiets"] = "https://www.ns.nl/deur-tot-deur/ov-fiets";
 
 
+        icons["flickbike"] = L.divIcon({
+            iconSize: [10, 10],
+            shadowSize: [0, 0],
+            className: 'icon flickbike' 
+        });
+        urls["flickbike"] = "https://www.flickbike.nl/";
+
+        icons["cykl"] = L.divIcon({
+            iconSize: [20, 20],
+            shadowSize: [0, 0],
+            className: 'icon cykl' 
+        });
+        urls["cykl"] = "https://www.cykl.nl/";
+
+        icons["nu-connect"] = L.divIcon({
+            iconSize: [20, 20],
+            shadowSize: [0, 0],
+            className: 'icon nu-connect' 
+        });
+        urls["nu-connect"] = "http://nu-connectutrecht.nl/";
+
+
+        icons["nextbike_maastricht"] = L.divIcon({
+            iconSize: [20, 20],
+            shadowSize: [0, 0],
+            className: 'icon nextbike' 
+        });
+        urls["nextbike_maastricht"] = "https://www.nextbike.nl/en/";
+     
+
+
+
+        function plotBikes(json) {
+            for(bike_i in json) {
+                cycle_location = json[bike_i];
+                if (!(cycle_location["id"] in markers)) {
+                    marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[cycle_location["systemId"]]}).addTo(map);
+                    text = "<p><b>" + cycle_location["systemId"] + "</b></p>" 
+                        + "<p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
+
+
+                    marker.bindPopup(text);
+                    markers[cycle_location["id"]] = marker;
+                }
+            }
         }
 
         function plotCoverage(json) {
@@ -50,13 +159,22 @@
                 "stroke": false,
                 "fillColor": "#ff7800",
                 "weight": 5,
-                "opacity": 0.65
+                "opacity": 0.2
             };
 
             L.geoJSON(json, {
                 style: myStyle
-            }).addTo(mymap);
+            }).addTo(map);
         }
+        function onZoom(e) {
+            if(e.target._zoom > 12.0) {
+                console.log(map.getBounds());
+                getBikes(map.getBounds());
+            }
+        }
+
+
+        map.on('moveend', onZoom);
 
         getCoverage();
 
