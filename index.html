@@ -56,6 +56,12 @@
         height: 20px;
     }
 
+    .donkey {
+        background-color: rgba(244,116,32,1.0);
+        width: 15px;
+        height: 15px;
+    }
+
     </style>
 
     <script>
@@ -136,7 +142,12 @@
         });
         urls["nextbike_maastricht"] = "https://www.nextbike.nl/en/";
      
-
+        icons["donkey"] = L.divIcon({
+            iconSize: [20, 20],
+            shadowSize: [0, 0],
+            className: 'icon donkey' 
+        });
+        urls["donkey"] = "https://www.donkey.bike/";
 
 
         function plotBikes(json) {
