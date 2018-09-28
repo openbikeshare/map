@@ -128,8 +128,8 @@
 
     .flickbike {
         background-color: rgba(244,51,0,0.8);
-        width: 10px;
-        height: 10px;
+        width: 5px;
+        height: 5px;
     }
 
     .cykl {
@@ -144,10 +144,16 @@
         height: 20px;
     }
 
-    .nextbike {
+    .nextbike_station {
         background-color: rgba(1,72,153,0.8);
         width: 20px;
         height: 20px;
+    }
+
+    .nextbike_bike {
+        background-color: rgba(1,72,153,0.8);
+	width: 5px;
+        height: 5px;
     }
 
     .donkey {
@@ -199,29 +205,29 @@
         icons = {};
         urls = {};
 
-        icons["ovfiets"] = L.divIcon({
+        icons["ovfiets_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
             className: 'icon ovfiets' 
         });
-        urls["ovfiets"] = "https://www.ns.nl/deur-tot-deur/ov-fiets";
+        urls["ovfiets_station"] = "https://www.ns.nl/deur-tot-deur/ov-fiets";
 
 
-        icons["flickbike"] = L.divIcon({
-            iconSize: [10, 10],
+        icons["flickbike_bike"] = L.divIcon({
+            iconSize: [5, 5],
             shadowSize: [0, 0],
             className: 'icon flickbike' 
         });
-        urls["flickbike"] = "https://www.flickbike.nl/";
+        urls["flickbike_bike"] = "https://www.flickbike.nl/";
 
-        icons["cykl"] = L.divIcon({
+        icons["cykl_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
             className: 'icon cykl' 
         });
-        urls["cykl"] = "https://www.cykl.nl/";
+        urls["cykl_station"] = "https://www.cykl.nl/";
 
-        icons["nu-connect"] = L.divIcon({
+        icons["nu-connect_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
             className: 'icon nu-connect' 
@@ -229,32 +235,43 @@
         urls["nu-connect"] = "http://nu-connectutrecht.nl/";
 
 
-        icons["nextbike_maastricht"] = L.divIcon({
+        icons["nextbike_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
-            className: 'icon nextbike' 
+            className: 'icon nextbike_station' 
         });
-        urls["nextbike_maastricht"] = "https://www.nextbike.nl/en/";
+        urls["nextbike_station"] = "https://www.nextbike.nl/en/";
      
-        icons["donkey"] = L.divIcon({
+
+        icons["nextbike_bike"] = L.divIcon({
+            iconSize: [5, 5],
+            shadowSize: [0, 0],
+	    className: 'icon nextbike_bike' 
+	});
+        urls["nextbike_station"] = "https://www.nextbike.nl/en/";
+
+
+        icons["donkey_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
             className: 'icon donkey' 
         });
-        urls["donkey"] = "https://www.donkey.bike/";
+        urls["donkey_station"] = "https://www.donkey.bike/";
 
 
         function plotBikes(json) {
             for(bike_i in json) {
                 cycle_location = json[bike_i];
                 if (!(cycle_location["id"] in markers)) {
-                    marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[cycle_location["systemId"]]}).addTo(map);
+                    var marker_id = cycle_location["systemId"] + "_" + cycle_location["category"];
+	            marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[marker_id]}).addTo(map);
                     text = "<p><b>" + cycle_location["systemId"] + "</b></p>" 
                         + "<p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
 
 
                     marker.bindPopup(text);
-                    markers[cycle_location["id"]] = marker;
+		    var marker_id = cycle_location["id"] + "_" + cycle_location["category"];
+                    markers[marker_id] = marker;
                 }
             }
         }
