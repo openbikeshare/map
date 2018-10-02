@@ -16,8 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.6/js/uikit-icons.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />  
-   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+
     <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
 
 
@@ -76,18 +76,18 @@
             <button class="uk-modal-close-outside" type="button" uk-close></button>
         </div>
         <div class="uk-modal-dialog uk-modal-body">
-            
+
             <h2 class="uk-modal-title">Openbike.nl</h2>
-            
+
                 <p>
                     Looking for a shared bike? <br>
                     Confused by all those different options?
                 </p>
-                    
+
                 <p>Openbike.nl is the solution by giving an overview of all available bikes.
                     Openbike is a free service and is open-source.</p>
-                    
-                 <p>Openbike.nl uses the open standard <a href="https://github.com/openbikeshare/gbfsplus">GBFS+</a> which is supported by: 
+
+                 <p>Openbike.nl uses the open standard <a href="https://github.com/openbikeshare/gbfsplus">GBFS+</a> which is supported by:
                     <ul>
                         <li>12 bike companies in The Netherlands </li>
                         <li>The ministry of Infrastructure </li>
@@ -95,13 +95,13 @@
                         <li>CROW Fietsberaad </li>
                     </ul>
                 </p>
-                   
+
                     <h3>Get involved</h2>
-                    Openbike.nl and the open standard GBFS+ is not finished. Please help to make this project awesome. 
-                    Together we can develop Open Bike Sharing tools. 
-                    We strive for a transparent, decentralized solution. 
+                    Openbike.nl and the open standard GBFS+ is not finished. Please help to make this project awesome.
+                    Together we can develop Open Bike Sharing tools.
+                    We strive for a transparent, decentralized solution.
                     Below you find the communication channels we use at the moment and some links. Feel free to join, we love to hear from you! <br>
-                    More info about the project (mainly in Dutch): 
+                    More info about the project (mainly in Dutch):
                     <ul>
                         <li><a href="https://openbikeshare.github.io/" target="_blank">https://openbikeshare.github.io/</a></li>
                         <li><a href="https://groups.google.com/forum/#!forum/openbikeshare" target="_blank"> Discussion forum</a></li>
@@ -109,7 +109,7 @@
                         <li><a href="https://github.com/openbikeshare" target="_blank">Source code (GitHub)</a> </li>
                     </ul>
             </p>
-            
+
             <p class="uk-text-right">
                 <button class="uk-button uk-button-default uk-button-primary" type="button">Close</button>
             </p>
@@ -128,8 +128,8 @@
 
     .flickbike {
         background-color: rgba(244,51,0,0.8);
-        width: 5px;
-        height: 5px;
+        width: 10px;
+        height: 10px;
     }
 
     .cykl {
@@ -208,29 +208,29 @@
         icons["ovfiets_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
-            className: 'icon ovfiets' 
+            className: 'icon ovfiets'
         });
-        urls["ovfiets_station"] = "https://www.ns.nl/deur-tot-deur/ov-fiets";
+        urls["ovfiets"] = "https://www.ns.nl/deur-tot-deur/ov-fiets";
 
 
         icons["flickbike_bike"] = L.divIcon({
             iconSize: [5, 5],
             shadowSize: [0, 0],
-            className: 'icon flickbike' 
+            className: 'icon flickbike'
         });
-        urls["flickbike_bike"] = "https://www.flickbike.nl/";
+        urls["flickbike"] = "https://www.flickbike.nl/";
 
         icons["cykl_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
-            className: 'icon cykl' 
+            className: 'icon cykl'
         });
-        urls["cykl_station"] = "https://www.cykl.nl/";
+        urls["cykl"] = "https://www.cykl.nl/";
 
         icons["nu-connect_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
-            className: 'icon nu-connect' 
+            className: 'icon nu-connect'
         });
         urls["nu-connect"] = "http://nu-connectutrecht.nl/";
 
@@ -238,25 +238,25 @@
         icons["nextbike_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
-            className: 'icon nextbike_station' 
+            className: 'icon nextbike_station'
         });
-        urls["nextbike_station"] = "https://www.nextbike.nl/en/";
-     
+        urls["nextbike"] = "https://www.nextbike.nl/en/";
+
 
         icons["nextbike_bike"] = L.divIcon({
             iconSize: [5, 5],
             shadowSize: [0, 0],
-	    className: 'icon nextbike_bike' 
+	    className: 'icon nextbike_bike'
 	});
-        urls["nextbike_station"] = "https://www.nextbike.nl/en/";
+        urls["nextbike"] = "https://www.nextbike.nl/en/";
 
 
         icons["donkey_station"] = L.divIcon({
             iconSize: [20, 20],
             shadowSize: [0, 0],
-            className: 'icon donkey' 
+            className: 'icon donkey'
         });
-        urls["donkey_station"] = "https://www.donkey.bike/";
+        urls["donkey"] = "https://www.donkey.bike/";
 
 
         function plotBikes(json) {
@@ -265,7 +265,7 @@
                 if (!(cycle_location["id"] in markers)) {
                     var marker_id = cycle_location["systemId"] + "_" + cycle_location["category"];
 	            marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[marker_id]}).addTo(map);
-                    text = "<p><b>" + cycle_location["systemId"] + "</b></p>" 
+                    text = "<p><b>" + cycle_location["systemId"] + "</b></p>"
                         + "<p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
 
 
