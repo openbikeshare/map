@@ -192,8 +192,8 @@
                 if (!(cycle_location["id"] in markers)) {
                     var marker_id = cycle_location["systemId"] + "_" + cycle_location["category"];
 	            marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[marker_id]}).addTo(map);
-                    text = "<p><b>" + cycle_location["systemId"] + "</b></p>"
-                        + "<p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
+                    text = "<p><b>" + cycle_location["systemId"] + "</b></p><p>"+cycle_location["id"]
+                        + "</p><p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
 
 
                     marker.bindPopup(text);
