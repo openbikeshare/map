@@ -190,10 +190,17 @@
             for(bike_i in json) {
                 cycle_location = json[bike_i];
                 if (!(cycle_location["id"] in markers)) {
+
                     var marker_id = cycle_location["systemId"] + "_" + cycle_location["category"];
 	            marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[marker_id]}).addTo(map);
+                    if (cycle_location["id"]!="flickbike:559")
+                    {urltext= "<a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a>"}
+                    else {
+                      urltext= "<a href='go.html'> UNLOCK </a>"
+                    }
+
                     text = "<p><b>" + cycle_location["systemId"] + "</b></p><p>"+cycle_location["id"]
-                        + "</p><p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
+                        + "</p><p>"+ urltext + "</p>";
 
 
                     marker.bindPopup(text);
