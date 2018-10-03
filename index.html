@@ -103,15 +103,15 @@
 
 
         L.control.locate().addTo(map);
-    //    function getCoverage() {
-    //        fetch('https://openbike.nl/api/coverage')
-    //            .then(function (response) {
-    //                return response.json();
-    //            })
-    //            .then(function (json) {
-    //                plotCoverage(json);
-    //            });
-    //    }
+       function getCoverage() {
+            fetch('https://openbike.nl/api/coverage')
+                .then(function (response) {
+                    return response.json();
+               })
+                .then(function (json) {
+                    plotCoverage(json);
+                });
+        }
 
         function getBikes(bounds) {
             let p1 = new URLSearchParams("");
