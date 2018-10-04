@@ -2,6 +2,9 @@
 
 <head>
   <title>OpenBike</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
   <style>
   body {
     background-color: rgb(251, 174, 23);
@@ -15,11 +18,57 @@
   }
 
   p {
-
       font-size: 20px;
   }
+
+  .button {
+  border-radius: 4px;
+  background-color: #235c66;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.fa {
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  direction: ltr;
+  font-size: 10rem;
+}
+
   </style>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
@@ -33,15 +82,43 @@
                 </p>
 
 
+<!-- This website is purely for mvp demonstration purposes, there is no authentication and therfor everybody is able to open the lock of the demonstration bicycle. 
+Do you like to help to improve openbike.nl further, please have a look at https://github.com/openbikeshare 
+-->
 
                  <p>
-                   <button type="submit">UNLOCK</button>
-                </p>
+                <button class="button" id="unlock"><span>Unlock </span></button>
+		 </p>
+ <div class="content">
+
+      <i class="fa fa-lock" id="lock"></i>
+    </div>
+</div>
+                 <script>
+        document.getElementById('unlock').addEventListener('click', unlockBike);
+
+
+        function unlockBike(){
+            fetch('https://openbike.nl/api/lock/unlock')
+        .then(function (res) {
+            return res.json();
+        })
+        .then(function (data) {
+		if (data.openedSuccesfully === true) {
+		    element = document.getElementById('lock');
+		    element.classList.remove("fa-lock");
+		    element.classList.add("fa-unlock");
+		}
+	});
+       }
 
 
 
 
-   </div>
+
+</script> 
+
+
 
 </body>
 
