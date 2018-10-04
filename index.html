@@ -30,17 +30,21 @@
         }
 
         #mapid {
-            height: 90%;
+            height: 94%;
             width: 100%;
         }
+
     </style>
+    <!-- toegevoegd ivm mobile view R -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name=theme-color content=#FBAE17>
 </head>
 
 <body>
 
 
     <div id="mapid"></div>
- <p style="heigth: 10%;  text-align: center;"> openbike - <a href="about.html" target="_blank">ABOUT</a> </p>
+ <p style="heigth: 5%;  text-align: center;"> openbike - <a href="about.html" target="_blank">about</a> </p>
 
     <style>
     .icon{
@@ -55,8 +59,8 @@
 
     .flickbike {
         background-color: rgba(244,51,0,0.8);
-        width: 10px;
-        height: 10px;
+        width: 20px;
+        height: 20px;
     }
 
     .cykl {
@@ -85,8 +89,8 @@
 
     .donkey {
         background-color: rgba(244,116,32,1.0);
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
     }
 
     </style>
@@ -141,7 +145,7 @@
 
 
         icons["flickbike_bike"] = L.divIcon({
-            iconSize: [10, 10],
+            iconSize: [20, 20],
             shadowSize: [0, 0],
             className: 'icon flickbike'
         });
