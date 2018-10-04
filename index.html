@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <title>OpenBike</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
         crossorigin="" />
     <!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -8,12 +9,7 @@
         crossorigin=""></script>
 
 
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.6/css/uikit.min.css" />
 
-    <!-- UIkit JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.6/js/uikit.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.6/js/uikit-icons.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
@@ -27,94 +23,25 @@
         body {
             padding: 0;
             margin: 0;
+            background-color: rgb(251, 174, 23);
+            font-family: 'Roboto', sans-serif;
+
+
         }
 
         #mapid {
-            height: 100%;
+            height: 90%;
             width: 100%;
         }
     </style>
 </head>
 
 <body>
-    <nav class="uk-navbar-container" uk-navbar>
-        <div class="uk-navbar-left">
-                <a class="uk-navbar-item uk-logo" href="#">Openbikeshare</a>
-        </div>
-
-
-        <div class="uk-navbar-right">
-                <ul class="uk-navbar-nav">
-                    <li class="uk-parent"><a  href="#more-information" uk-toggle>About</a> </li>
-                    <li>
-                            <a href="#">
-                                <div>
-                                    Links
-                                </div>
-                            </a>
-                            <div class="uk-navbar-dropdown">
-                                <ul class="uk-nav uk-navbar-dropdown-nav">
-                                    <li class="uk-parent"><a href="https://groups.google.com/forum/#!forum/openbikeshare" target="_blank">Discussion group</a></li>
-                                    <li class="uk-parent"><a href="https://openbikeshare.github.io/" target="_blank">GitHub.io</a></li>
-                                    <li class="uk-parent"><a href="https://github.com/openbikeshare" target="_blank">GitHub.com</a></li>
-				    <li class="uk-parent"><a href="https://github.com/openbikeshare/gbfsplus" target="_blank">GBFS+ specification</a></li>
-                                </ul>
-                            </div>
-                    </li>
-                </ul>
-        </div>
-    </nav>
-
-    <!-- This is a button toggling the modal -->
-
 
 
     <div id="mapid"></div>
+ <p style="heigth: 10%;  text-align: center;"> openbike - <a href="about.html" target="_blank">ABOUT</a> </p>
 
-    <div id="more-information" uk-modal>
-        <div class="uk-modal-dialog">
-            <button class="uk-modal-close-outside" type="button" uk-close></button>
-        </div>
-        <div class="uk-modal-dialog uk-modal-body">
-
-            <h2 class="uk-modal-title">Openbike.nl</h2>
-
-                <p>
-                    Looking for a shared bike? <br>
-                    Confused by all those different options?
-                </p>
-
-                <p>Openbike.nl is the solution by giving an overview of all available bikes.
-                    Openbike is a free service and is open-source.</p>
-
-                 <p>Openbike.nl uses the open standard <a href="https://github.com/openbikeshare/gbfsplus">GBFS+</a> which is supported by:
-                    <ul>
-                        <li>12 bike companies in The Netherlands </li>
-                        <li>The ministry of Infrastructure </li>
-                        <li>The cities of Amsterdam, Rotterdam, Utrecht, The Hague and Eindhoven</li>
-                        <li>CROW Fietsberaad </li>
-                    </ul>
-                </p>
-
-                    <h3>Get involved</h2>
-                    Openbike.nl and the open standard GBFS+ is not finished. Please help to make this project awesome.
-                    Together we can develop Open Bike Sharing tools.
-                    We strive for a transparent, decentralized solution.
-                    Below you find the communication channels we use at the moment and some links. Feel free to join, we love to hear from you! <br>
-                    More info about the project (mainly in Dutch):
-                    <ul>
-                        <li><a href="https://openbikeshare.github.io/" target="_blank">https://openbikeshare.github.io/</a></li>
-                        <li><a href="https://groups.google.com/forum/#!forum/openbikeshare" target="_blank"> Discussion forum</a></li>
-                        <li><a href="https://openbike.nl" target="_blank">Openbike.nl demo site (this site)</a></li>
-                        <li><a href="https://github.com/openbikeshare" target="_blank">Source code (GitHub)</a> </li>
-                    </ul>
-            </p>
-
-            <p class="uk-text-right">
-                <button class="uk-button uk-button-default uk-button-primary" type="button">Close</button>
-            </p>
-        </div>
-    </div>
     <style>
     .icon{
       border-radius: 50%;
@@ -168,19 +95,19 @@
         var map = L.map('mapid', {
         zoomDelta: 0.25,
         zoomSnap: 0
-    }).setView([52.090031, 5.318403], 9);
+    }).setView([52.0, 4.7], 11);
         L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic3ZlbjRhbGwiLCJhIjoiY2pndHI1Zjk5MTRleTJxczM1cXp0dDFmYyJ9.q2gfHAYo0g84ltS2pzWJ-Q', {
-            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+            attribution: '<a href="https://www.mapbox.com/about/maps/">Mapbox</a>; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>;<strong><a href="about.html">OpenBike</a></strong> ',
             maxZoom: 18
         }).addTo(map);
 
 
         L.control.locate().addTo(map);
-        function getCoverage() {
+       function getCoverage() {
             fetch('https://openbike.nl/api/coverage')
                 .then(function (response) {
                     return response.json();
-                })
+               })
                 .then(function (json) {
                     plotCoverage(json);
                 });
@@ -214,7 +141,7 @@
 
 
         icons["flickbike_bike"] = L.divIcon({
-            iconSize: [5, 5],
+            iconSize: [10, 10],
             shadowSize: [0, 0],
             className: 'icon flickbike'
         });
@@ -263,10 +190,17 @@
             for(bike_i in json) {
                 cycle_location = json[bike_i];
                 if (!(cycle_location["id"] in markers)) {
+
                     var marker_id = cycle_location["systemId"] + "_" + cycle_location["category"];
 	            marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[marker_id]}).addTo(map);
-                    text = "<p><b>" + cycle_location["systemId"] + "</b></p>"
-                        + "<p><a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a></p>";
+                    if (cycle_location["id"]!="flickbike:559")
+                    {urltext= "<a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a>"}
+                    else {
+                      urltext= "<a href='go.html'> UNLOCK </a>"
+                    }
+
+                    text = "<p><b>" + cycle_location["systemId"] + "</b></p><p>"+cycle_location["id"]
+                        + "</p><p>"+ urltext + "</p>";
 
 
                     marker.bindPopup(text);
