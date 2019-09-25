@@ -46,54 +46,6 @@
     <div id="mapid"></div>
  <p style="heigth: 5%;  text-align: center;"> openbike - <a href="about.html" target="_blank">about</a> </p>
 
-    <style>
-    .icon{
-      border-radius: 50%;
-    }
-
-    .ovfiets {
-        background-color: rgba(254,199,15,0.8);
-        width: 20px;
-        height: 20px;
-    }
-
-    .flickbike {
-        background-color: rgba(244,51,0,0.8);
-        width: 20px;
-        height: 20px;
-    }
-
-    .cykl {
-        background-color: rgba(146,198,54,0.8);
-        width: 20px;
-        height: 20px;
-    }
-
-    .nu-connect {
-        background-color: rgba(8,168,169,0.8);
-        width: 20px;
-        height: 20px;
-    }
-
-    .nextbike_station {
-        background-color: rgba(1,72,153,0.8);
-        width: 20px;
-        height: 20px;
-    }
-
-    .nextbike_bike {
-        background-color: rgba(1,72,153,0.8);
-	width: 5px;
-        height: 5px;
-    }
-
-    .donkey {
-        background-color: rgba(244,116,32,1.0);
-        width: 10px;
-        height: 10px;
-    }
-
-    </style>
 
     <script>
         var map = L.map('mapid', {
@@ -108,7 +60,7 @@
 
         L.control.locate().addTo(map);
        function getCoverage() {
-            fetch('https://openbike.nl/api/coverage')
+            fetch('https://api.openbike.nl/coverage')
                 .then(function (response) {
                     return response.json();
                })
@@ -123,7 +75,7 @@
             p1.append("sw_lat", bounds._southWest.lat)
             p1.append("ne_lng", bounds._northEast.lng)
             p1.append("ne_lat", bounds._northEast.lat)
-             fetch('https://openbike.nl/api/cycles?' + p1.toString())
+             fetch('https://api.openbike.nl/cycles?' + p1.toString())
                 .then(function (response) {
                     return response.json();
                 }).then(function(json) {
@@ -136,58 +88,102 @@
         icons = {};
         urls = {};
 
-        icons["ovfiets_station"] = L.divIcon({
-            iconSize: [20, 20],
-            shadowSize: [0, 0],
-            className: 'icon ovfiets'
-        });
+        icons["ovfiets_station"] = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#2A2202',
+            "fillColor": '#FEC70F',
+            "fillOpacity": 0.8
+        };
         urls["ovfiets"] = "https://www.ns.nl/deur-tot-deur/ov-fiets";
 
 
-        icons["flickbike_bike"] = L.divIcon({
-            iconSize: [20, 20],
-            shadowSize: [0, 0],
-            className: 'icon flickbike'
-        });
+        icons["flickbike_bike"] = {
+            "radius": 4,
+            "weight": 1,
+            "color": '#9C2100',
+            "fillColor": '#F43300'
+        };
         urls["flickbike"] = "https://www.flickbike.nl/";
 
-        icons["cykl_station"] = L.divIcon({
-            iconSize: [20, 20],
-            shadowSize: [0, 0],
-            className: 'icon cykl'
-        });
+
+
+        icons["cykl_station"] = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#182209',
+            "fillColor": '#92C636',
+            "fillOpacity": 0.8
+        }
+        icons["cykl_bike"] = {
+            "radius": 4,
+            "weight": 1,
+            "color": '#01254E',
+            "fillColor": '#92C636'
+        };
         urls["cykl"] = "https://www.cykl.nl/";
 
-        icons["nu-connect_station"] = L.divIcon({
-            iconSize: [20, 20],
-            shadowSize: [0, 0],
-            className: 'icon nu-connect'
-        });
+        icons["nu-connect_station"] = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#043d3d',
+            "fillColor": '#08a8a9',
+            "fillOpacity": 0.8
+        };
         urls["nu-connect"] = "http://nu-connectutrecht.nl/";
 
 
-        icons["nextbike_station"] = L.divIcon({
-            iconSize: [20, 20],
-            shadowSize: [0, 0],
-            className: 'icon nextbike_station'
-        });
+        icons["nextbike_station"] = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#01254E',
+            "fillColor": '#014899',
+            "fillOpacity": 0.8
+        }
+
+
+        icons["nextbike_bike"] = {
+            "radius": 4,
+            "weight": 1,
+            "color": '#01254E',
+            "fillColor": '#014899'
+        };
         urls["nextbike"] = "https://www.nextbike.nl/en/";
 
 
-        icons["nextbike_bike"] = L.divIcon({
-            iconSize: [5, 5],
-            shadowSize: [0, 0],
-	    className: 'icon nextbike_bike'
-	});
-        urls["nextbike"] = "https://www.nextbike.nl/en/";
+        urls["htm"] = "https://www.htm.nl/htm-fiets/";
+        icons["htm_station"] = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#201e1f',
+            "fillColor": '#e62026',
+            "fillOpacity": 0.5
+        }
+
+        icons["htm_bike"] = {
+            "radius": 4,
+            "weight": 1,
+            "color": '#201e1f',
+            "fillColor": '#e62026'
+        };
 
 
-        icons["donkey_station"] = L.divIcon({
-            iconSize: [20, 20],
-            shadowSize: [0, 0],
-            className: 'icon donkey'
-        });
+        icons["donkey_station"] = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#201e1f',
+            "fillColor": '#F47420',
+            "fillOpacity": 0.8
+        };
         urls["donkey"] = "https://www.donkey.bike/";
+
+        default_icon_options = {
+            "radius": 10,
+            "weight": 1,
+            "color": '#000000',
+            "fillColor": '#FFFFFF',
+            "fillOpacity": 0.8
+        };
 
 
         function plotBikes(json) {
@@ -196,12 +192,9 @@
                 if (!(cycle_location["id"] in markers)) {
 
                     var marker_id = cycle_location["systemId"] + "_" + cycle_location["category"];
-	            marker = L.marker([cycle_location["latitude"], cycle_location["longitude"]], {icon: icons[marker_id]}).addTo(map);
-                    if (cycle_location["id"]!="flickbike:559")
-                    {urltext= "<a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a>"}
-                    else {
-                      urltext= "<a href='go.html'> UNLOCK </a>"
-                    }
+	                marker = L.circleMarker([cycle_location["latitude"], cycle_location["longitude"]], (icons[marker_id] || default_icon_options)).addTo(map);
+                    
+                    urltext= "<a href='" + urls[cycle_location["systemId"]] + "'>" + urls[cycle_location["systemId"]] + "</a>"
 
                     text = "<p><b>" + cycle_location["systemId"] + "</b></p><p>"+cycle_location["id"]
                         + "</p><p>"+ urltext + "</p>";
@@ -216,10 +209,12 @@
 
         function plotCoverage(json) {
             var myStyle = {
-                "stroke": false,
-                "fillColor": "#ff7800",
-                "weight": 5,
-                "opacity": 0.2
+                "stroke": true,
+                "color": "#3333ff",
+                "fillColor": "#80bfff",
+                "dashArray": "1 4",
+                "weight": 3,
+                "opacity": 0.3
             };
 
             L.geoJSON(json, {
