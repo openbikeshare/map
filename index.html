@@ -52,9 +52,13 @@
         zoomDelta: 0.25,
         zoomSnap: 0
     }).setView([52.0, 4.7], 11);
-        L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoic3ZlbjRhbGwiLCJhIjoiY2pndHI1Zjk5MTRleTJxczM1cXp0dDFmYyJ9.q2gfHAYo0g84ltS2pzWJ-Q', {
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic3ZlbjRhbGwiLCJhIjoiY2pndHI1Zjk5MTRleTJxczM1cXp0dDFmYyJ9.q2gfHAYo0g84ltS2pzWJ-Q', {
             attribution: '<a href="https://www.mapbox.com/about/maps/">Mapbox</a>; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>;<strong><a href="about.html">OpenBike</a></strong> ',
-            maxZoom: 18
+            tileSize: 512,
+                maxZoom: 18,
+                zoomOffset: -1,
+                id: 'mapbox/streets-v11',
+                accessToken: 'eyJ1Ijoic3ZlbjRhbGwiLCJhIjoiY2pndHI1Zjk5MTRleTJxczM1cXp0dDFmYyJ9'
         }).addTo(map);
 
 
